@@ -180,7 +180,7 @@ export const Navbar = () => {
       <NavbarWrapper>
         <TopContainer>
           <LogoImg title="Anveshna." to="/home" onClick={() => window.scrollTo(0, 0)}>
-            <img src="https://raw.githubusercontent.com/devxoshakya/anveshna/main/public/images/icon.png" alt="Anveshna." className='scale-125 ml-4'/>
+            <img src="https://raw.githubusercontent.com/devxoshakya/anveshna/main/public/images/icon.png" alt="GenAnime" className='scale-125 ml-4'/>
           </LogoImg>
 
           {!isMobileView && (
@@ -208,13 +208,13 @@ export const Navbar = () => {
               </StyledButton>
             )}
             <StyledButton>
-              <a href='https://github.com/devxoshakya' target='_blank' rel='noreferrer'>
-              <FaGithub/>
+              <a href='https://instagram.com/DARKXSIDE78' target='_blank' rel='noreferrer'>
+              <FaYInstagram/>
               </a>
             </StyledButton>
             <StyledButton>
-              <a href='https://twitter.com/devxoshakya' target='_blank' rel='noreferrer'>
-              <FaXTwitter />
+              <a href='https://telegram.me/GenAnimeOfc' target='_blank' rel='noreferrer'>
+              <FaTelegram />
               </a>
             </StyledButton>
           </RightContent>
