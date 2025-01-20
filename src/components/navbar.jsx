@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 import { IoIosSearch } from 'react-icons/io';
-import { FaXTwitter } from "react-icons/fa6";
-import { FaGithub } from "react-icons/fa";
+import { FaTelegram } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
 
 
 const StyledNavbar = styled.div`
@@ -209,7 +209,7 @@ export const Navbar = () => {
             )}
             <StyledButton>
               <a href='https://instagram.com/DARKXSIDE78' target='_blank' rel='noreferrer'>
-              <FaYInstagram/>
+              <FaInstagram/>
               </a>
             </StyledButton>
             <StyledButton>
