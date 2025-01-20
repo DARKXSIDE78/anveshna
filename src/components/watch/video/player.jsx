@@ -324,6 +324,7 @@ const Player = ({
         className='player'
         title={`${animeVideoTitle} - Episode ${episodeNumber}`}
         src={{ src: `https://goodproxy.goodproxy.workers.dev/fetch?url=${encodeURIComponent(src)}`, type: 'application/x-mpegurl' }}
+        {/*         src={https://goodproxy.goodproxy.workers.dev/fetch?url=${encodeURIComponent(src)}} */}
         crossOrigin
         playsInline
         autoPlay={autoPlay}
