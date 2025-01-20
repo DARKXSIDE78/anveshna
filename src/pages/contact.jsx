@@ -6,7 +6,7 @@ import { Flip } from 'react-toastify'; // Import the Flip transition
 
 
 
-emailjs.init("n5Tbm4utYd9SNopVB"); // Replace with your actual EmailJS public API key
+emailjs.init("0oYJCvm3c6YsHnYnf"); // Replace with your actual EmailJS public API key
 
 const Contact = () => {
   useEffect(() => {
@@ -27,8 +27,8 @@ const Contact = () => {
     const message = e.target.message.value;
 
     // Set up EmailJS parameters
-    const serviceID = "service_7mfvpja";
-    const templateID = "template_k39u3fc";
+    const serviceID = "service_28zk0qk";
+    const templateID = "template_qyyv4zv";
 
     // Send the email
     emailjs.send(serviceID, templateID, {
