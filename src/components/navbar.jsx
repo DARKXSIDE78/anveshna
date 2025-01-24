@@ -48,7 +48,7 @@ const LogoImg = styled(Link)`
   transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 
   &:hover {
-    color: black;
+    color: white;
     transform: scale(1.05);
   }
 
