@@ -6,7 +6,7 @@ const sections = [
     content: (
       <p>
         <strong>Data Collection</strong>: We collect minimal user data necessary
-        for the functioning of GenAnime., such as user
+        for the functioning of GenAnime, such as user
         preferences.
         <br />
         <br />
@@ -15,7 +15,7 @@ const sections = [
         third parties except as required by law.
         <br />
         <br />
-        <strong>Cookies and Tracking</strong>: GenAnime. uses cookies and similar
+        <strong>Cookies and Tracking</strong>: GenAnime uses cookies and similar
         tracking technologies to enhance the user experience like caching video
         timestamps and tracking watched content.
         <br />
@@ -37,7 +37,7 @@ const sections = [
         <br />
         <strong>Contact Us</strong>: If you have any questions about these
         terms, please contact us at{' '}
-        <a href='mailto:devxoshakya@gmail.com' className="font-bold text-indigo-600">
+        <a href='mailto:GenAnimeOfc@gmail.com' className="font-bold text-indigo-600">
           devxoshakya@gmail.com
         </a>
       </p>
@@ -47,12 +47,12 @@ const sections = [
     title: 'Terms of Service',
     content: (
       <p>
-        <strong>Acceptance of Terms</strong>: By using GenAnime., you agree to
+        <strong>Acceptance of Terms</strong>: By using GenAnime, you agree to
         these Terms of Service and acknowledge that they affect your legal
         rights and obligations.
         <br />
         <br />
-        <strong>Content</strong>: GenAnime. does not host video content but embeds
+        <strong>Content</strong>: GenAnime does not host video content but embeds
         videos from various third-party sources. We are not responsible for the
         content, quality, or the policies of these external sites.
         <br />
