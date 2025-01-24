@@ -118,8 +118,8 @@ const Watch = () => {
     try {
         const embeddedServers = await fetchAnimeEmbeddedEpisodes(episodeId);
         if (embeddedServers && embeddedServers.length > 0) {
-            const vidstreamingServer = embeddedServers.find((server) => server.name === 'Vidhid');
-            const selectedServer = vidstreamingServer || embeddedServers[0];
+            const vidhideServer = embeddedServers.find((server) => server.name === 'Vidhide');
+            const selectedServer = vidhideServer || embeddedServers[0];
             setEmbeddedVideoUrl(selectedServer);
         }
     }
