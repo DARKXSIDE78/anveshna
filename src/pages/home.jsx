@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Slideshow from '../components/home/slideshow';
-import { fetchTrendingAnime, fetchPopularAnime, fetchTopAirAnime} from '../hooks/useAPI';
+import { fetchTrendingAnime, fetchPopularAnime} from '../hooks/useAPI';
 import CardGrid from '../components/cards/cardItem';
 import EpisodeCard from '../components/home/EpisodeCard';
 
@@ -89,23 +89,22 @@ const Home = () => {
       });
   }, []);
 
-
-   //useEffect(() => {
-     //fetchTopAirAnime()
-       //.then(topAirAnime => {
-         //const data = topAirAnime
-           //.map(anime => ({
-             //id: anime.id,
-             //title: anime.title || 'No Title',
-             //totalEpisodes: anime.latestEp,
-             //imageSrc: anime.image_url,
-           //}));
-         //setTopAirData(data);
-       //})
-       //.catch(error => {
-         //console.error('Error:', error);
-       //});
-   //},[]);
+  // useEffect(() => {
+  //   fetchTopAirAnime()
+  //     .then(topAirAnime => {
+  //       const data = topAirAnime
+  //         .map(anime => ({
+  //           id: anime.id,
+  //           title: anime.title || 'No Title',
+  //           totalEpisodes: anime.latestEp,
+  //           imageSrc: anime.image_url,
+  //         }));
+  //       setTopAirData(data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // },[]);
 
 
 
@@ -119,17 +118,17 @@ const Home = () => {
       <div className=" w-full mx-auto md:w-full p-4">
         <div className="flex mx-auto justify-center gap-4 my-8">
           <button
-            className={px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
               activeTab === 'TRENDING' ? 'bg-[#333333] text-[var(--global-text)]' : 'bg-transparent text-[var(--global-text)] hover:bg-[#222222]'
-            }}
+            }`}
             onClick={() => handleTabClick('TRENDING')}
             >
             TRENDING
           </button>
           <button
-            className={px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
               activeTab === 'POPULAR' ? 'bg-[#333333] text-[var(--global-text)]' : 'bg-transparent text-[var(--global-text)] hover:bg-[#222222]'
-            }}
+            }`}
             onClick={() => handleTabClick('POPULAR')}
             >
             POPULAR
