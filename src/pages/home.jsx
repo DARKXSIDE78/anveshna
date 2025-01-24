@@ -91,8 +91,8 @@ const Home = () => {
 
   useEffect(() => {
     fetchRecentAnime()
-      .then(recentAnime => {
-        const data = recentAnime
+      .then(recentEpisodes => {
+        const data = recentEpisodes
           .map(anime => ({
             id: anime.id,
             bannerImage: anime.bannerImage,
