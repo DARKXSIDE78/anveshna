@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Slideshow from '../components/home/slideshow';
-import { fetchTrendingAnime, fetchPopularAnime, fetchTopAirAnime } from '../hooks/useAPI'; // Updated API call to fetchTopAirAnime
+import { fetchTrendingAnime, fetchPopularAnime, fetchTopAirAnime } from '../hooks/useAPI'; // Ensure the fetchTopAirAnime is imported correctly
 import CardGrid from '../components/cards/cardItem';
 import EpisodeCard from '../components/home/EpisodeCard';
 
 const Home = () => {
   window.scrollTo(0, 0);
+
   const [activeTab, setActiveTab] = useState('TRENDING');
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -13,15 +14,16 @@ const Home = () => {
 
   const [trendingData, setTrendingData] = useState([]);
   const [popularData, setPopularData] = useState([]);
-  const [topAirData, setTopAirData] = useState([]); // Added state for top airing
+  const [topAirData, setTopAirData] = useState([]); // State for top airing data
   const [state, setState] = useState({ watchedEpisodes: [] });
 
+  // Fetch Trending Anime
   useEffect(() => {
     fetchTrendingAnime()
-      .then(trendingAnime => {
+      .then((trendingAnime) => {
         const data = trendingAnime
-          .filter(anime => anime.bannerImage)
-          .map(anime => ({
+          .filter((anime) => anime.bannerImage)
+          .map((anime) => ({
             id: anime.id,
             bannerImage: anime.bannerImage,
             title: anime.title.english || anime.title.romaji || 'No Title',
@@ -37,37 +39,39 @@ const Home = () => {
           }));
         setTrendingData(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
 
+  // Fetch Watched Episodes from Local Storage
   useEffect(() => {
     const fetchWatchedEpisodes = () => {
-        const watchedEpisodesData = localStorage.getItem('watched-episodes');
-        if (watchedEpisodesData) {
-            const allEpisodes = JSON.parse(watchedEpisodesData);
-            const latestEpisodes = [];
-            Object.keys(allEpisodes).forEach((animeId) => {
-                const episodes = allEpisodes[animeId];
-                const latestEpisode = episodes[episodes.length - 1];
-                latestEpisodes.push(latestEpisode);
-            });
-            setState((prevState) => ({
-                ...prevState,
-                watchedEpisodes: latestEpisodes,
-            }));
-        }
+      const watchedEpisodesData = localStorage.getItem('watched-episodes');
+      if (watchedEpisodesData) {
+        const allEpisodes = JSON.parse(watchedEpisodesData);
+        const latestEpisodes = [];
+        Object.keys(allEpisodes).forEach((animeId) => {
+          const episodes = allEpisodes[animeId];
+          const latestEpisode = episodes[episodes.length - 1];
+          latestEpisodes.push(latestEpisode);
+        });
+        setState((prevState) => ({
+          ...prevState,
+          watchedEpisodes: latestEpisodes,
+        }));
+      }
     };
 
     fetchWatchedEpisodes();
   }, []);
 
+  // Fetch Popular Anime
   useEffect(() => {
     fetchPopularAnime()
-      .then(popularAnime => {
+      .then((popularAnime) => {
         const data = popularAnime
-          .map(anime => ({
+          .map((anime) => ({
             id: anime.id,
             bannerImage: anime.bannerImage,
             title: anime.title.english || anime.title.romaji || 'No Title',
@@ -83,17 +87,17 @@ const Home = () => {
           }));
         setPopularData(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
 
-  // Fetch the top airing anime
+  // Fetch Top Airing Anime
   useEffect(() => {
     fetchTopAirAnime()
-      .then(topAirAnime => {
+      .then((topAirAnime) => {
         const data = topAirAnime
-          .map(anime => ({
+          .map((anime) => ({
             id: anime.id,
             bannerImage: anime.bannerImage,
             title: anime.title.english || anime.title.romaji || 'No Title',
@@ -109,18 +113,19 @@ const Home = () => {
           }));
         setTopAirData(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
 
+  // Display data based on the selected tab
   const displayData = activeTab === 'TRENDING' ? trendingData : activeTab === 'POPULAR' ? popularData : topAirData;
 
   return (
-    <div className='text-white my-16'>
+    <div className="text-white my-16">
       <Slideshow />
       <EpisodeCard />
-      <div className='flex md:flex-col'>
+      <div className="flex md:flex-col">
         <div className="w-full mx-auto md:w-full p-4">
           <div className="flex mx-auto justify-center gap-4 my-8">
             <button
