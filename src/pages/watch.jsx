@@ -244,148 +244,126 @@ useEffect(() => {
 
 
 //----------------------------------------------USEFFECTS----------------------------------------------
-    //SETS DEFAULT SOURCE TYPE AND LANGUGAE TO DEFAULT AND SUB
-    useEffect(() => {
-      const defaultSourceType = 'default';
-      const defaultLanguage = 'dub';
-      setSourceType(localStorage.getItem(getSourceTypeKey(animeId || '')) ||
-          defaultSourceType);
-      setLanguage(localStorage.getItem(getLanguageKey(animeId || '')) || defaultLanguage);
-  }, [animeId]);
-  // SAVES LANGUAGE PREFERENCE TO LOCAL STORAGE
-  useEffect(() => {
-      localStorage.setItem(getLanguageKey(animeId), language);
-  }, [language, animeId]);
-  //FETCHES ANIME DATA AND ANIME INFO AS BACKUP
-  useEffect(() => {
-      let isMounted = true;
-      const fetchInfo = async () => {
-          if (!animeId) {
-              console.error('Anime ID is null.');
-              setLoading(false);
-              return;
-          }
-          setLoading(true);
-          try {
-              const info = await fetchAnimeDetails(animeId);
-              if (isMounted) {
-                  setAnimeInfo(info);
-              }
-          }
-          catch (error) {
-              console.error('Failed to fetch anime data, trying fetchAnimeInfo as a fallback:', error);
-              try {
-                  const fallbackInfo = await fetchAnimeDetails(animeId);
-                  if (isMounted) {
-                      setAnimeInfo(fallbackInfo);
-                  }
-              }
-              catch (fallbackError) {
-                  console.error('Also failed to fetch anime info as a fallback:', fallbackError);
-              }
-              finally {
-                  if (isMounted)
-                      setLoading(false);
-              }
-          }
-      };
-      fetchInfo();
-      return () => {
-          isMounted = false;
-      };
-  }, [animeId]);
+
+// SETS DEFAULT SOURCE TYPE AND LANGUAGE TO DEFAULT AND DUB
+useEffect(() => {
+  const defaultSourceType = 'default';
+  const defaultLanguage = 'dub'; // Set default language to dub
+  setSourceType(localStorage.getItem(getSourceTypeKey(animeId || '')) || defaultSourceType);
+  setLanguage(localStorage.getItem(getLanguageKey(animeId || '')) || defaultLanguage); // Ensure default is dub
+}, [animeId]);
+
+// SAVES LANGUAGE PREFERENCE TO LOCAL STORAGE
+useEffect(() => {
+  localStorage.setItem(getLanguageKey(animeId), language);
+}, [language, animeId]);
+
+// FETCHES ANIME DATA AND ANIME INFO AS BACKUP
+useEffect(() => {
+  let isMounted = true;
+  const fetchInfo = async () => {
+    if (!animeId) {
+      console.error('Anime ID is null.');
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    try {
+      const info = await fetchAnimeDetails(animeId);
+      if (isMounted) {
+        setAnimeInfo(info);
+      }
+    } catch (error) {
+      console.error('Failed to fetch anime data, trying fetchAnimeInfo as a fallback:', error);
+      try {
+        const fallbackInfo = await fetchAnimeDetails(animeId);
+        if (isMounted) {
+          setAnimeInfo(fallbackInfo);
+        }
+      } catch (fallbackError) {
+        console.error('Also failed to fetch anime info as a fallback:', fallbackError);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+  };
+  fetchInfo();
+  return () => {
+    isMounted = false;
+  };
+}, [animeId]);
+
 // FETCHES ANIME EPISODES BASED ON LANGUAGE, ANIME ID AND UPDATES COMPONENTS
 useEffect(() => {
   let isMounted = true;
   const fetchData = async () => {
-      setLoading(true);
-      if (!animeId)
-          return;
-      try {
-          const isDub = language === 'dub';
-          const animeData = await fetchAnimeEpisodes(animeTitle,isDub);
-          console.log(isDub,"is dub");
-          if (isMounted && animeData && Array.isArray(animeData.episodes)) {
-              const transformedEpisodes = animeData.episodes
-                  .filter((ep) => ep.id.includes('-episode-')) // Continue excluding entries without '-episode-'
-                  .map((ep) => {
-                  const episodePart = ep.id.split('-episode-')[1];
-                  // New regex to capture the episode number including cases like "7-5"
-                  const episodeNumberMatch = episodePart.match(/^(\d+(?:-\d+)?)/);
-                  return {
-                    ...ep,
-                    number: episodeNumberMatch ? episodeNumberMatch[0] : ep.number,
-                    id: ep.id,
-                    title: ep.title,
-                  };
-                });
-                setEpisodes((transformedEpisodes.reverse()));
-              const navigateToEpisode = (() => {
-                  if (languageChanged) {
-                      const currentEpisodeNumber = episodeNumber || currentEpisode.number;
-                      return (transformedEpisodes.find((ep) => ep.number === currentEpisodeNumber) || transformedEpisodes[transformedEpisodes.length - 1]);
-                  }
-                  else if (animeTitle && episodeNumber) {
-                      const episodeId = `${animeTitle}-episode-${episodeNumber}`;
-                      return (transformedEpisodes.find((ep) => ep.id === episodeId) ||
-                          navigate(`/watch/${animeId}`, { replace: true }));
-                  }
-                  else {
-                      const savedEpisodeData = localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_WATCHED_EPISODE + animeId);
-                      const savedEpisode = savedEpisodeData
-                          ? JSON.parse(savedEpisodeData)
-                          : null;
-                      return savedEpisode
-                          ? transformedEpisodes.find((ep) => ep.number === savedEpisode.number) || transformedEpisodes[0]
-                          : transformedEpisodes[0];
-                  }
-              })();
-              if (navigateToEpisode) {
-                  setCurrentEpisode({
-                      id: navigateToEpisode.id,
-                      number: navigateToEpisode.number,
-                      title: navigateToEpisode.title,
-                  });
-                  const newAnimeTitle = navigateToEpisode.id.split('-episode-')[0];
-                  navigate(`/watch/${animeId}/${newAnimeTitle}/${navigateToEpisode.number}`, { replace: true });
-                  setLanguageChanged(false); // Reset the languageChanged flag after handling the navigation
-              }
+    setLoading(true);
+    if (!animeId) return;
+
+    try {
+      const isDub = language === 'dub';
+      const animeData = await fetchAnimeEpisodes(animeTitle, isDub);
+      console.log(isDub, "is dub");
+
+      if (isMounted && animeData && Array.isArray(animeData.episodes)) {
+        const transformedEpisodes = animeData.episodes
+          .filter((ep) => ep.id.includes('-episode-'))
+          .map((ep) => {
+            const episodePart = ep.id.split('-episode-')[1];
+            const episodeNumberMatch = episodePart.match(/^(\d+(?:-\d+)?)/);
+            return {
+              ...ep,
+              number: episodeNumberMatch ? episodeNumberMatch[0] : ep.number,
+              id: ep.id,
+              title: ep.title,
+            };
+          });
+        setEpisodes((transformedEpisodes.reverse()));
+
+        const navigateToEpisode = (() => {
+          if (languageChanged) {
+            const currentEpisodeNumber = episodeNumber || currentEpisode.number;
+            return (transformedEpisodes.find((ep) => ep.number === currentEpisodeNumber) || transformedEpisodes[transformedEpisodes.length - 1]);
           }
+          else if (animeTitle && episodeNumber) {
+            const episodeId = `${animeTitle}-episode-${episodeNumber}`;
+            return (transformedEpisodes.find((ep) => ep.id === episodeId) ||
+              navigate(`/watch/${animeId}`, { replace: true }));
+          }
+          else {
+            const savedEpisodeData = localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_WATCHED_EPISODE + animeId);
+            const savedEpisode = savedEpisodeData ? JSON.parse(savedEpisodeData) : null;
+            return savedEpisode
+              ? transformedEpisodes.find((ep) => ep.number === savedEpisode.number) || transformedEpisodes[0]
+              : transformedEpisodes[0];
+          }
+        })();
+
+        if (navigateToEpisode) {
+          setCurrentEpisode({
+            id: navigateToEpisode.id,
+            number: navigateToEpisode.number,
+            title: navigateToEpisode.title,
+          });
+
+          const newAnimeTitle = navigateToEpisode.id.split('-episode-')[0];
+          // Modify the URL to include 'dub' if applicable
+          const languagePath = language === 'dub' ? `${newAnimeTitle}-dub` : newAnimeTitle;
+          navigate(`/watch/${animeId}/${languagePath}/${navigateToEpisode.number}`, { replace: true });
+
+          setLanguageChanged(false); // Reset the languageChanged flag after handling the navigation
+        }
       }
-      catch (error) {
-          console.error('Failed to fetch episodes:', error);
-      }
-      finally {
-          if (isMounted)
-              setLoading(false);
-      }
+    } catch (error) {
+      console.error('Failed to fetch episodes:', error);
+    } finally {
+      if (isMounted) setLoading(false);
+    }
   };
 
-
-// get finalAnimeTitle
-
-
-  // Last visited cache to order continue watching
-  const updateLastVisited = () => {
-      if (!animeInfo || !animeId)
-          return; // Ensure both animeInfo and animeId are available
-      const lastVisited = localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_ANIME_VISITED);
-      const lastVisitedData = lastVisited ? JSON.parse(lastVisited) : {};
-      lastVisitedData[animeId] = {
-          timestamp: Date.now(),
-          titleEnglish: animeInfo?.title?.english || '', // Assuming animeInfo contains the title in English
-          titleRomaji: animeInfo?.title?.romaji || '', // Assuming animeInfo contains the title in Romaji
-          bannerImage: animeInfo?.bannerImage || animeInfo?.coverImage?.large || '', // Assuming animeInfo contains the banner image
-          gogoId : finalAnimeTitle || '', 
-      };
-      localStorage.setItem(LOCAL_STORAGE_KEYS.LAST_ANIME_VISITED, JSON.stringify(lastVisitedData));
-  };
-  if (animeId) {
-      updateLastVisited();
-  }
   fetchData();
   return () => {
-      isMounted = false;
+    isMounted = false;
   };
 }, [
   animeId,
@@ -398,6 +376,25 @@ useEffect(() => {
   animeInfo,
   finalAnimeTitle
 ]);
+
+// Last visited cache to order continue watching
+const updateLastVisited = () => {
+  if (!animeInfo || !animeId) return; // Ensure both animeInfo and animeId are available
+  const lastVisited = localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_ANIME_VISITED);
+  const lastVisitedData = lastVisited ? JSON.parse(lastVisited) : {};
+  lastVisitedData[animeId] = {
+    timestamp: Date.now(),
+    titleEnglish: animeInfo?.title?.english || '', // Assuming animeInfo contains the title in English
+    titleRomaji: animeInfo?.title?.romaji || '', // Assuming animeInfo contains the title in Romaji
+    bannerImage: animeInfo?.bannerImage || animeInfo?.coverImage?.large || '', // Assuming animeInfo contains the banner image
+    gogoId: finalAnimeTitle || '',
+  };
+  localStorage.setItem(LOCAL_STORAGE_KEYS.LAST_ANIME_VISITED, JSON.stringify(lastVisitedData));
+};
+
+if (animeId) {
+  updateLastVisited();
+}
 
 // FETCH EMBEDDED EPISODES IF VIDSTREAMING OR GOGO HAVE BEEN SELECTED
 useEffect(() => {
