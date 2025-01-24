@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { FaTwitter } from 'react-icons/fa';
+import { FaTelegram } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { FaGithub } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
 
@@ -136,31 +136,31 @@ function NewFooter() {
           <Text as="p" $isSub={true}>
             &copy; {getYear()}{' '}
             <a
-              href="https://www.anveshna.xyz"
+              href="https://www.GenAnimeOfc.com"
               rel="noopener noreferrer"
               style={{ color: 'grey' }}
             >
-              Anveshna.
+              GenAnime
             </a>{' '}
-            | Website Made by <strong><a href='https://devxoshakya.xyz' rel='noopener noreferrer'>Dev Shakya</a></strong>
+            | Website Made by <strong><a href='https://instagram.com/DARKXSIDE78' rel='noopener noreferrer'>DARKXSIDE78</a></strong>
           </Text>
           <nav aria-label="Social Links">
             <SocialIconsWrapper>
               {[
                 {
-                  href: 'https://instagram.com/devxoshakya',
+                  href: 'https://instagram.com/dARKXSIDE78',
                   Icon: FaInstagram,
                   label: 'Instagram',
                 },
                 {
-                  href: 'https://x.com/devxoshakya',
-                  Icon: FaTwitter,
-                  label: 'Twitter',
+                  href: 'https://youtube.com/GenAnimeOfc',
+                  Icon: FaYoutube,
+                  label: 'Youtube',
                 },
                 {
-                  href: 'https://github.com/devxoshakya',
-                  Icon: FaGithub,
-                  label: 'Github',
+                  href: 'https://t.me/GenAnimeOfc',
+                  Icon: FaTelegram,
+                  label: 'Telegram',
                 },
               ].map(({ href, Icon, label }) => (
                 <ShareButton
