@@ -6,7 +6,6 @@ import { IoIosSearch } from 'react-icons/io';
 import { FaTelegram } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 
-
 const StyledNavbar = styled.div`
   position: fixed;
   top: 0;
@@ -141,6 +140,22 @@ const StyledButton = styled.button`
   }
 `;
 
+const NavButton = styled(Link)`
+  color: var(--global-text);
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.6rem;
+  border-radius: 3px;
+  transition: 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: var(--global-hover-bg);
+    transform: scale(1.05);
+  }
+`;
+
 export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -170,7 +185,6 @@ export const Navbar = () => {
     }
   };
   
-
   const handleClearSearch = () => {
     setSearchQuery('');
   };
@@ -180,7 +194,7 @@ export const Navbar = () => {
       <NavbarWrapper>
         <TopContainer>
           <LogoImg title="GenAnime" to="/home" onClick={() => window.scrollTo(0, 0)}>
-            <img src="" alt="GenAnime" className='scale-125 ml-4'/>
+            <img src="" alt="GenAnime" className="scale-125 ml-4" />
           </LogoImg>
 
           {!isMobileView && (
@@ -207,14 +221,17 @@ export const Navbar = () => {
                 <IoIosSearch />
               </StyledButton>
             )}
+            <NavButton to="/home">Home</NavButton>
+            <NavButton to="/anime-list">Anime List</NavButton>
+            <NavButton to="/genres">Genres</NavButton>
             <StyledButton>
-              <a href='https://instagram.com/DARKXSIDE78' target='_blank' rel='noreferrer'>
-              <FaInstagram/>
+              <a href="https://instagram.com/DARKXSIDE78" target="_blank" rel="noreferrer">
+                <FaInstagram />
               </a>
             </StyledButton>
             <StyledButton>
-              <a href='https://telegram.me/GenAnimeOfc' target='_blank' rel='noreferrer'>
-              <FaTelegram />
+              <a href="https://telegram.me/GenAnimeOfc" target="_blank" rel="noreferrer">
+                <FaTelegram />
               </a>
             </StyledButton>
           </RightContent>
