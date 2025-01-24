@@ -248,7 +248,7 @@ useEffect(() => {
 // SETS DEFAULT SOURCE TYPE AND LANGUAGE TO DEFAULT AND DUB
 useEffect(() => {
   const defaultSourceType = 'default';
-  const defaultLanguage = 'dub'; // Set default language to dub
+  const defaultLanguage = 'sub'; // Set default language to dub
   setSourceType(localStorage.getItem(getSourceTypeKey(animeId || '')) || defaultSourceType);
   setLanguage(localStorage.getItem(getLanguageKey(animeId || '')) || defaultLanguage); // Ensure default is dub
 }, [animeId]);
@@ -346,10 +346,20 @@ useEffect(() => {
             title: navigateToEpisode.title,
           });
 
-          const newAnimeTitle = navigateToEpisode.id.split('-episode-')[0];
-          // Modify the URL to include 'dub' if applicable
-          const languagePath = language === 'dub' ? `${newAnimeTitle}-dub` : newAnimeTitle;
-          navigate(`/watch/${animeId}/${languagePath}/${navigateToEpisode.number}`, { replace: true });
+          // Handle Dub or Sub logic for URL
+          let newAnimeTitle = navigateToEpisode.id.split('-episode-')[0];
+
+          // Remove "-dub" if it's there and we're switching to "sub"
+          if (language === 'sub' && newAnimeTitle.endsWith('-dub')) {
+            newAnimeTitle = newAnimeTitle.slice(0, -4); // Remove "-dub"
+          }
+
+          // Add "-dub" if we're switching to "dub"
+          if (language === 'dub' && !newAnimeTitle.endsWith('-dub')) {
+            newAnimeTitle = `${newAnimeTitle}-dub`;
+          }
+
+          navigate(`/watch/${animeId}/${newAnimeTitle}/${navigateToEpisode.number}`, { replace: true });
 
           setLanguageChanged(false); // Reset the languageChanged flag after handling the navigation
         }
@@ -395,7 +405,6 @@ const updateLastVisited = () => {
 if (animeId) {
   updateLastVisited();
 }
-
 // FETCH EMBEDDED EPISODES IF VIDSTREAMING OR GOGO HAVE BEEN SELECTED
 useEffect(() => {
   if (sourceType === 'vidstreaming' && currentEpisode.id) {
