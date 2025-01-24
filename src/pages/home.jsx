@@ -89,6 +89,32 @@ const Home = () => {
       });
   }, []);
 
+  useEffect(() => {
+    fetchRecentAnime()
+      .then(recentAnime => {
+        const data = recentAnime
+          .map(anime => ({
+            id: anime.id,
+            bannerImage: anime.bannerImage,
+            title: anime.title.english || anime.title.romaji || 'No Title',
+            title_romaji: anime.title.romaji,
+            type: anime.format,
+            totalEpisodes: anime.episodes,
+            rating: anime.averageScore,
+            duration: anime.duration,
+            imageSrc: anime.coverImage.extraLarge,
+            status: anime.status,
+            color: anime.coverImage.color,
+            relaseDate: anime.seasonYear,
+          }));
+        setPopularData(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+
   // useEffect(() => {
   //   fetchTopAirAnime()
   //     .then(topAirAnime => {
@@ -124,6 +150,14 @@ const Home = () => {
             onClick={() => handleTabClick('TRENDING')}
             >
             TRENDING
+          </button>
+          <button
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
+              activeTab === 'RECENT' ? 'bg-[#333333] text-[var(--global-text)]' : 'bg-transparent text-[var(--global-text)] hover:bg-[#222222]'
+            }`}
+            onClick={() => handleTabClick('RECENT')}
+            >
+            RECENT
           </button>
           <button
             className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
