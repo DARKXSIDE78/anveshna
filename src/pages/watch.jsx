@@ -247,7 +247,7 @@ useEffect(() => {
     //SETS DEFAULT SOURCE TYPE AND LANGUGAE TO DEFAULT AND SUB
     useEffect(() => {
       const defaultSourceType = 'default';
-      const defaultLanguage = 'sub';
+      const defaultLanguage = 'dub';
       setSourceType(localStorage.getItem(getSourceTypeKey(animeId || '')) ||
           defaultSourceType);
       setLanguage(localStorage.getItem(getLanguageKey(animeId || '')) || defaultLanguage);
