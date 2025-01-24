@@ -179,8 +179,8 @@ export const Navbar = () => {
     <StyledNavbar>
       <NavbarWrapper>
         <TopContainer>
-          <LogoImg title="Anveshna." to="/home" onClick={() => window.scrollTo(0, 0)}>
-            <img src="https://raw.githubusercontent.com/devxoshakya/anveshna/main/public/images/icon.png" alt="GenAnime" className='scale-125 ml-4'/>
+          <LogoImg title="GenAnime" to="/home" onClick={() => window.scrollTo(0, 0)}>
+            <img src="https://github.com/DARKXSIDE78/anveshna/blob/main/src/images/GenAnime.png" alt="GenAnime" className='scale-125 ml-4'/>
           </LogoImg>
 
           {!isMobileView && (
