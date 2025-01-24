@@ -500,7 +500,7 @@ useEffect(() => {
                   '');
   }
   else {
-      document.title = 'GenAnime';
+      document.title = '';
   }
 }, [animeInfo]);
 
