@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Slideshow from '../components/home/slideshow';
-import { fetchTrendingAnime, fetchPopularAnime} from '../hooks/useAPI';
+import { fetchTrendingAnime, fetchPopularAnime, fetchRecentAnime} from '../hooks/useAPI';
 import CardGrid from '../components/cards/cardItem';
 import EpisodeCard from '../components/home/EpisodeCard';
 
