@@ -112,7 +112,6 @@ function NewFooter() {
       <footer className='mx-4 mb-4'>
         <FooterBaseContainer aria-label="Main Footer" $isSub={false}>
           <Text as="p" $isSub={false}>
-            <FooterLogoImage alt="GenAnime" /> <br />
             This website does not retain any files on its server. Rather, it
             solely provides links to media content hosted by third-party
             services.
