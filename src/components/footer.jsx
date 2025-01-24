@@ -69,12 +69,6 @@ const SocialIconsWrapper = styled.div`
   gap: 1rem;
 `;
 
-const FooterLogoImage = styled.img`
-  content: url('../images/icon.png');
-  max-width: 8rem;
-  height: auto;
-`;
-
 const Text = styled.div`
   color: grey;
   font-size: ${({ $isSub }) => ($isSub ? '0.75rem' : '0.65rem')};
@@ -118,7 +112,7 @@ function NewFooter() {
       <footer className='mx-4 mb-4'>
         <FooterBaseContainer aria-label="Main Footer" $isSub={false}>
           <Text as="p" $isSub={false}>
-            <FooterLogoImage alt="Footer Logo" /> <br />
+            <FooterLogoImage alt="GenAnime" /> <br />
             This website does not retain any files on its server. Rather, it
             solely provides links to media content hosted by third-party
             services.
