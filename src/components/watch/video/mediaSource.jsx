@@ -232,7 +232,7 @@ const MediaSource = ({
                     }
                     onClick={() => handleButtonClick('default', 'sub')}
                   >
-                    Default
+                    GEN-1
                   </Button>
                 </ButtonWrapper>
               </TableCell>
@@ -246,7 +246,7 @@ const MediaSource = ({
                     }
                     onClick={() => handleButtonClick('vidstreaming', 'sub')}
                   >
-                    Vidstream
+                    GEN-2
                   </Button>
                 </ButtonWrapper>
               </TableCell>
@@ -260,21 +260,7 @@ const MediaSource = ({
                     }
                     onClick={() => handleButtonClick('gogo', 'sub')}
                   >
-                    Gogo
-                  </Button>
-                </ButtonWrapper>
-              </TableCell>
-              <TableCell>
-                <ButtonWrapper>
-                  <Button
-                    className={
-                      sourceType === 'vidhide' && language === 'sub'
-                        ? 'active'
-                        : ''
-                    }
-                    onClick={() => handleButtonClick('vidhide', 'sub')}
-                  >
-                    Vidstream
+                    GEN-3
                   </Button>
                 </ButtonWrapper>
               </TableCell>
@@ -291,7 +277,7 @@ const MediaSource = ({
                     }
                     onClick={() => handleButtonClick('default', 'dub')}
                   >
-                    Default
+                    GEN-1
                   </Button>
                 </ButtonWrapper>
               </TableCell>
@@ -305,7 +291,7 @@ const MediaSource = ({
                     }
                     onClick={() => handleButtonClick('vidstreaming', 'dub')}
                   >
-                    Vidstream
+                    GEN-2
                   </Button>
                 </ButtonWrapper>
               </TableCell>
@@ -319,21 +305,7 @@ const MediaSource = ({
                     }
                     onClick={() => handleButtonClick('gogo', 'dub')}
                   >
-                    Gogo
-                  </Button>
-                </ButtonWrapper>
-              </TableCell>
-              <TableCell>
-                <ButtonWrapper>
-                  <Button
-                    className={
-                      sourceType === 'vidhide' && language === 'dub'
-                        ? 'active'
-                        : ''
-                    }
-                    onClick={() => handleButtonClick('vidhide', 'dub')}
-                  >
-                    Vidstream
+                    GEN-3
                   </Button>
                 </ButtonWrapper>
               </TableCell>
