@@ -113,6 +113,20 @@ const Watch = () => {
       return (<span className="bg-primary-accent text-white font-bold py-2 px-4 rounded hover:scale-105 transition transform duration-200" onClick={handleClick}>Go back Home</span>);
   };
 
+//FETCH VIDHIDE VIDEO
+  const fetchVidstreamingUrl = async (episodeId) => {
+    try {
+        const embeddedServers = await fetchAnimeEmbeddedEpisodes(episodeId);
+        if (embeddedServers && embeddedServers.length > 0) {
+            const vidstreamingServer = embeddedServers.find((server) => server.name === 'Vidhid');
+            const selectedServer = vidstreamingServer || embeddedServers[0];
+            setEmbeddedVideoUrl(selectedServer);
+        }
+    }
+    catch (error) {
+        console.error('Error fetching Vidhide servers for episode ID:', episodeId, error);
+    }
+};
   //FETCH VIDSTREAMING VIDEO
   const fetchVidstreamingUrl = async (episodeId) => {
     try {
@@ -413,6 +427,9 @@ useEffect(() => {
   else if (sourceType === 'gogo' && currentEpisode.id) {
       fetchEmbeddedUrl(currentEpisode.id).catch(console.error);
   }
+  else if (sourceType === 'vidhide' && currentEpisode.id) {
+      fetchEmbeddedUrl(currentEpisode.id).catch(console.error);
+  }
 }, [sourceType, currentEpisode.id]);
 // UPDATE BACKGROUND IMAGE TO ANIME BANNER IF WIDTH IS UNDER 500PX / OR USE ANIME COVER IF NO BANNER FOUND
 useEffect(() => {
@@ -500,7 +517,7 @@ useEffect(() => {
                   '');
   }
   else {
-      document.title = '';
+      document.title = 'GenAnime';
   }
 }, [animeInfo]);
 
