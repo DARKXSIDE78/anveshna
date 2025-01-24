@@ -114,7 +114,7 @@ const Watch = () => {
   };
 
 //FETCH VIDHIDE VIDEO
-  const fetchVidstreamingUrl = async (episodeId) => {
+  const fetchVidhideUrl = async (episodeId) => {
     try {
         const embeddedServers = await fetchAnimeEmbeddedEpisodes(episodeId);
         if (embeddedServers && embeddedServers.length > 0) {
