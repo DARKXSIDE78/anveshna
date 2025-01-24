@@ -90,7 +90,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetchRecentAnime()
+    fetchRecentEpisodesV1()
       .then(recentEpisodes => {
         const data = recentEpisodes
           .map(anime => ({
