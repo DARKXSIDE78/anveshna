@@ -13,6 +13,7 @@ const Home = () => {
 
   const [trendingData, setTrendingData] = useState([]);
   const [popularData, setPopularData] = useState([]);
+  const [topAirData, setTopAirData] = useState([]);
   const [state, setState] = useState({ watchedEpisodes: [] });
 
 
